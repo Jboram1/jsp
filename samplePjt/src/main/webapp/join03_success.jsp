@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -81,7 +81,7 @@
 				<p>
 					감사합니다.
 					<strong>회원가입이 완료되었습니다.</strong>
-					<p><a href="main.do">홈으로</a> </p>
+					<p><a href="main.do">홈으로</a></p>
 				</p>
 			</div>	
 				

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,15 +12,12 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/login.css">
   <script>
-  	$(function(){
-  		$("#lBtn").click(function(){
-  			//alert("로그인을 진행합니다.");
-  			lFrm.submit();
-  			
-  		});//click
-  		
-  	});//j
-  
+     $(function(){
+    	 $("#lBtn").click(function(){
+    		//alert($("#id").val()); 
+    		lFrm.submit(); //전송
+    	 });
+     });
   </script>
 </head>
 

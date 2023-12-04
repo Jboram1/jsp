@@ -11,7 +11,6 @@ public class MInsertService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw1");
 		String name = request.getParameter("name");
@@ -24,7 +23,7 @@ public class MInsertService implements Service {
 		String hobby="";
 		for(int i=0;i<hobbys.length;i++) {
 			if(i==0) hobby = hobbys[i];
-			else hobby +="," + hobbys[i];
+			else hobby += "," + hobbys[i];
 		}
 		
 		MemberDto mdto = new MemberDto(id, pw, name, phone, gender, hobby);
@@ -34,8 +33,7 @@ public class MInsertService implements Service {
 		int result = mdao.mInsert(mdto);
 		
 		//request 추가
-		request.setAttribute("result",result);
-		
+		request.setAttribute("result", result);
 
 	}
 

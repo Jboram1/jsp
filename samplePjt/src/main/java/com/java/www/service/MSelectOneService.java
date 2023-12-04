@@ -19,7 +19,7 @@ public class MSelectOneService implements Service {
 		MemberDao mdao = new MemberDao();
 		MemberDto mdto = mdao.selectOne(id);
 		
-		//request추가
+		//request 추가
 		request.setAttribute("mdto", mdto);
 
 	}
