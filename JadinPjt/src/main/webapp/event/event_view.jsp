@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -220,12 +220,12 @@ $(document).ready(function() {
 								</ul>
 							</div>
 							<div class="day">
-								<p class="txt">이벤트 기간<span>${bdto.bdate} ~ 2014-04-29</span></p>
+								<p class="txt">이벤트 기간<span>${dbto.bdate} ~ 2014-04-29</span></p>
 							</div>
 						</div>
 
 						<div class="viewContents">
-						${bdto.bcontent}
+							${bdto.bcontent}
 							<img src="../images/img/sample_event_view.jpg" alt="" />
 						</div>
 					</div>
@@ -256,8 +256,64 @@ $(document).ready(function() {
 						</table>
 					</div>
 					<!-- //이전다음글 -->
-
-
+					
+					<script>
+					$(function(){
+						$(".replyBtn").click(function(){
+							//alert("비밀번호  : "+$(".replynum").val());
+							//alert("내용  : "+$(".replyType").val());
+							
+							//입력내용 가져오기
+							var bno = "${bdto.bno}"; //jstl구문
+							var cpw= $(".replynum").val(); //jsp구문
+							var ccontent = $(".replyType").val();
+							
+							//db에 저장
+							$.ajax({
+								url:"../CInsert",
+								type:"post",
+								data:{"bno":bno, "cpw":cpw, "ccontent":ccontent},
+								//datatype:"json",
+								success:function(data){
+									//alert("성공");
+									//alert("댓글번호 : "+data.cno);
+									//alert(data);
+									//console.log("댓글번호 : "+data.cno);
+									//console.log("댓글아이디 : "+data.id);
+									//console.log("댓글내용 : "+data.ccontent);
+									//console.log("댓글날짜 : "+data.cdate);
+									//console.log(data);
+									
+									//댓글등록 태그
+									var htmlData ='';
+									htmlData += '<ul id="'+data.cno+'">';
+									htmlData += '<li class="name"> '+data.id+'<span> ['+data.cdate+']</span></li>';
+									htmlData += '<li class="txt">'+data.ccontent+'</li>';
+									htmlData += '<li class="btn">';
+									htmlData += '<a class="rebtn">수정</a>&nbsp';
+									htmlData += '<a class="rebtn">삭제</a>';
+									htmlData += '</li>';
+									htmlData += '</ul>';
+									
+									
+									//댓글등록후 내용지우기
+									$(".replyBox").prepend(htmlData); //append()-마지막, prepend()-처음, html()-삭제 후 추가
+									alert("댓글을 등록합니다.");
+									$(".replynum").val("");	//비밀번호 글 삭제
+									$(".replyType").val("");//내용 글 삭제
+									
+								},
+								error:function(){
+									alert("실패");
+									
+								}
+							});
+							
+							
+						});
+						
+					});
+					</script>
 					<!-- 댓글-->
 					<div class="replyWrite">
 						<ul>
@@ -266,31 +322,23 @@ $(document).ready(function() {
 								<p class="password">비밀번호&nbsp;&nbsp;<input type="password" class="replynum" /></p>
 								<textarea class="replyType"></textarea>
 							</li>
-							<li class="btn"><a href="#" class="replyBtn">등록</a></li>
+							<li class="btn"><a style="cursor: pointer;" class="replyBtn">등록</a></li>
 						</ul>
 						<p class="ntic">※ 비밀번호를 입력하시면 댓글이 비밀글로 등록 됩니다.</p>
 					</div>
 
 					<div class="replyBox">
-						<!-- 반복 시작 -->
-						<c:forEach var="ecomment" items="${clist}">
+					<c:forEach var="ecomment" items="${clist}">
 						<ul>
-							<li class="name">${ecomment.id} <span>[${ecomment.cdate}]</span></li>
+							<li class="name">${ecomment.id}<span>[${ecomment.cdate}]</span></li>
 							<li class="txt">${ecomment.ccontent}</li>
 							<li class="btn">
 								<a href="#" class="rebtn">수정</a>
 								<a href="#" class="rebtn">삭제</a>
 							</li>
 						</ul>
-						</c:forEach>
-						<!-- 반복 끝 -->
-						
-						
-						
-						
-						
-						
-						<!--  수정창 부분
+					</c:forEach>
+<!--수정창부분
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt"><textarea class="replyType"></textarea></li>
@@ -299,17 +347,15 @@ $(document).ready(function() {
 								<a href="#" class="rebtn">삭제</a>
 							</li>
 						</ul>
-						-->
-						
-						<!--  비밀글표시
+-->
+<!-- 비밀글 표시
 						<ul>
 							<li class="name">jjabcde <span>[2014-03-04&nbsp;&nbsp;15:01:59]</span></li>
 							<li class="txt">
 								<a href="password.html" class="passwordBtn"><span class="orange">※ 비밀글입니다.</span></a>
 							</li>
 						</ul>
-						-->
-						
+-->
 					</div>
 					<!-- //댓글 -->
 
